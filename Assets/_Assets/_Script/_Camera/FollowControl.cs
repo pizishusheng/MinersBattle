@@ -24,7 +24,6 @@ public class FollowControl : MonoBehaviour {
 
     void Start () {
         //transform.position = m_followTarget.transform.position + m_initPosition;
-		
 	}
 	
 	
@@ -34,7 +33,7 @@ public class FollowControl : MonoBehaviour {
 
         if (Input.GetMouseButton(1))
         {
-            ViewRotate();
+           // ViewRotate();
         }
 	}
 

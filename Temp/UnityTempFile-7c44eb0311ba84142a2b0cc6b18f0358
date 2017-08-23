@@ -88,7 +88,10 @@
 -define:ENABLE_VSTU
 'Assets/FreeCamera/FreeCamView.cs'
 'Assets/_Assets/_Script/Controller.cs'
+'Assets/_Assets/_Script/_Camera/AbstractTargetFollower.cs'
 'Assets/_Assets/_Script/_Camera/FollowControl.cs'
+'Assets/_Assets/_Script/_Camera/FreeLookCam.cs'
+'Assets/_Assets/_Script/_Camera/PivotBasedCameraRig.cs'
 'Assets/_Assets/_Script/_Config/PlayerConfig.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Xml.Linq.dll'
