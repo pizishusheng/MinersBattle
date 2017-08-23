@@ -33,7 +33,7 @@ public class FollowControl : MonoBehaviour {
 
         if (Input.GetMouseButton(1))
         {
-           // ViewRotate();
+            ViewRotate();
         }
 	}
 
@@ -44,10 +44,15 @@ public class FollowControl : MonoBehaviour {
         transform.position = Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
     }
 
-    void ViewRotate () {
-        float x = Input.GetAxis("Mouse X") * m_mouseSpeed;
-        float y = Input.GetAxis("Mouse Y") * m_mouseSpeed;
+    void ViewRotate()
+    {
+        Vector2 delta = Input.mouseScrollDelta;
 
+        float offset = -100f;
 
+        float angle = offset * m_mouseSpeed;
+
+        //Quaternion targetRot = Quaternion.Euler(0f, angle, 0f);
+        m_followTarget.transform.rotation = Quaternion.Lerp(m_followTarget.transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * 0.5f);
     }
 }
