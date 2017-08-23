@@ -6,8 +6,7 @@ using Player;
 
 public class Controller : MonoBehaviour {
 
-    public int m_speed = 20;
-
+    public int m_speed;
 
     AnimState m_currentState = AnimState.IDLE;
     Animation m_animtion;
@@ -30,36 +29,53 @@ public class Controller : MonoBehaviour {
 
     void ResponseKeyboard()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             Move(Vector3.forward);
             SwitchAnimationState(AnimState.WALK_FRONT);
             return;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             Move(Vector3.back);
             SwitchAnimationState(AnimState.WALK_BACK);
             return;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             Move(Vector3.right);
             SwitchAnimationState(AnimState.WALK_RIGHT);
             return;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             Move(Vector3.left);
             SwitchAnimationState(AnimState.WALK_LEFT);
             return;
         }
 
+        if (Input.GetKey(KeyCode.R))
+        {
+            m_speed = 20;
+            Move(Vector3.forward);
+            SwitchAnimationState(AnimState.RUN);
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SwitchAnimationState(AnimState.JUMP);
+            return;
+        }
+
         if (m_currentState != AnimState.IDLE)
+        {
+            m_speed = 10;
             SwitchAnimationState(AnimState.IDLE);
+        }
     }
 
 	void SwitchAnimationState(AnimState state)
