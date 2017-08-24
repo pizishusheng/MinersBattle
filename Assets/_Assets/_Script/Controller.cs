@@ -17,65 +17,36 @@ public class Controller : MonoBehaviour {
 	
 	
 	void Update () {
-        ResponseKeyboard();
+        
 	}
 
+    public void OnMove(float x, float z) {
+        Vector3 dir = new Vector3(x, 0, z);
+        dir.Normalize();
+        Move(dir);
+        Rotate(dir);
+    }
+
+    public void OnMoveEnd(){
+		if (m_currentState != AnimState.IDLE)
+		{
+			m_speed = 20;
+			SwitchAnimationState(AnimState.IDLE);
+		}
+    }
+
     void Move(Vector3 direction) {
+        SwitchAnimationState(AnimState.RUN);
+
         Vector3 movement = direction * m_speed * Time.deltaTime;
         Vector3 nextPos = transform.position + movement;
         Vector3 targetPos = Vector3.Lerp(transform.position, nextPos, Time.deltaTime * m_speed);
         transform.position = new Vector3(targetPos.x, 0, targetPos.z);
     }
 
-    void ResponseKeyboard()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            Move(Vector3.forward);
-            SwitchAnimationState(AnimState.WALK_FRONT);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            Move(Vector3.back);
-            SwitchAnimationState(AnimState.WALK_BACK);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            Move(Vector3.right);
-            SwitchAnimationState(AnimState.WALK_RIGHT);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            Move(Vector3.left);
-            SwitchAnimationState(AnimState.WALK_LEFT);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.R))
-        {
-            m_speed = 20;
-            Move(Vector3.forward);
-            SwitchAnimationState(AnimState.RUN);
-            return;
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            SwitchAnimationState(AnimState.JUMP);
-            return;
-        }
-
-        if (m_currentState != AnimState.IDLE)
-        {
-            m_speed = 10;
-            SwitchAnimationState(AnimState.IDLE);
-        }
+    void Rotate(Vector3 direction) {
+        float angle = 90 - Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * 10f);
     }
 
 	void SwitchAnimationState(AnimState state)

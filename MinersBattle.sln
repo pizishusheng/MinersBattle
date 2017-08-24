@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinersBattle", "MinersBattle.csproj", "{47D2956A-D1A4-F123-8CCA-ED277194AF16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinersBattle.Editor", "MinersBattle.Editor.csproj", "{11A5E858-E742-8688-A2E3-1050B0B7B284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{47D2956A-D1A4-F123-8CCA-ED277194AF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D2956A-D1A4-F123-8CCA-ED277194AF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D2956A-D1A4-F123-8CCA-ED277194AF16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A5E858-E742-8688-A2E3-1050B0B7B284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A5E858-E742-8688-A2E3-1050B0B7B284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A5E858-E742-8688-A2E3-1050B0B7B284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A5E858-E742-8688-A2E3-1050B0B7B284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
