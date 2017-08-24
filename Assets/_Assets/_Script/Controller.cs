@@ -24,7 +24,7 @@ public class Controller : MonoBehaviour {
         Vector3 dir = new Vector3(x, 0, z);
         dir.Normalize();
         Move(dir);
-        Rotate(dir);
+        //Rotate(dir);
     }
 
     public void OnMoveEnd(){
@@ -47,6 +47,14 @@ public class Controller : MonoBehaviour {
     void Rotate(Vector3 direction) {
         float angle = 90 - Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * 10f);
+    }
+
+    public void Hit() {
+        SwitchAnimationState(AnimState.ATTACK_1);
+	}
+
+    public void Jump() {
+        SwitchAnimationState(AnimState.JUMP);
     }
 
 	void SwitchAnimationState(AnimState state)
