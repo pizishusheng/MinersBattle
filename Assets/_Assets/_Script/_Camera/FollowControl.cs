@@ -11,7 +11,7 @@ public class FollowControl : MonoBehaviour {
     private Vector3 m_currentPosition;
     private Vector3 m_MoveVelocity;
 
-    float m_initHeight = 50f;
+    float m_initHeight = 30f;
     float m_heightDamping = 2.0f;
     float m_rotationDamping = 3.0f;
     float m_distance = 10.0f;
@@ -51,7 +51,7 @@ public class FollowControl : MonoBehaviour {
 
         // 
         transform.position = m_followTarget.position;
-        transform.position -= currentRotation * Vector3.forward * m_distance;
+        transform.position -= currentRotation * Vector3.up * m_distance;
 
         // 设置相机高度
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z - 50);

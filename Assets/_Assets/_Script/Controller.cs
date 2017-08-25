@@ -24,11 +24,11 @@ public class Controller : MonoBehaviour {
         Vector3 dir = new Vector3(x, 0, z);
         dir.Normalize();
         Move(dir);
-        //Rotate(dir);
+        Rotate(dir);
     }
 
     public void OnMoveEnd(){
-		if (m_currentState != AnimState.IDLE)
+        if (m_currentState != AnimState.IDLE)
 		{
 			m_speed = 20;
 			SwitchAnimationState(AnimState.IDLE);
@@ -51,10 +51,12 @@ public class Controller : MonoBehaviour {
 
     public void Hit() {
         SwitchAnimationState(AnimState.ATTACK_1);
+        m_currentState = AnimState.IDLE;
 	}
 
     public void Jump() {
         SwitchAnimationState(AnimState.JUMP);
+        m_currentState = AnimState.IDLE;
     }
 
 	void SwitchAnimationState(AnimState state)
@@ -62,27 +64,16 @@ public class Controller : MonoBehaviour {
 		if (m_currentState == state)
 			return;
 
-		m_animtion.Stop();
+		//m_animtion.Stop();
 		m_currentState = state;
 		switch (state)
 		{
 			case AnimState.RUN:
 				m_animtion.Play("Run");
 				break;
-			case AnimState.WALK_FRONT:
-				m_animtion.Play("WalkFront");
-				break;
-			case AnimState.WALK_BACK:
-				m_animtion.Play("WalkBack");
-				break;
-			case AnimState.WALK_RIGHT:
-				m_animtion.Play("WalkRight");
-				break;
-			case AnimState.WALK_LEFT:
-				m_animtion.Play("WalkLeft");
-				break;
 			case AnimState.IDLE:
-				m_animtion.Play("Idle");
+				//m_animtion.Play("Idle");
+                m_animtion.CrossFade("Idle", 0.1f);
 				break;
 			case AnimState.IDLE_2:
 				m_animtion.Play("Idle2");
