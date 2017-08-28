@@ -45,10 +45,8 @@ public class TouchInputManager : Singleton<TouchInputManager> {
     void OnHit() {
         m_playerController.Hit();
     }
-    bool isShow = false;
+
     void OnJump() {
-        //m_playerController.Jump();
-        m_weapon.SetActive(isShow);
-        isShow = !isShow;
+        m_playerController.Jump();
     }
 }

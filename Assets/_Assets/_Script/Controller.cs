@@ -9,10 +9,10 @@ public class Controller : MonoBehaviour {
     public int m_speed;
 
     AnimState m_currentState = AnimState.IDLE;
-    Animation m_animtion;
+    Animator m_animator;
 
 	void Start () {
-        m_animtion = GetComponent<Animation>();
+        m_animator = GetComponent<Animator>();
 	}
 	
 	
@@ -31,12 +31,14 @@ public class Controller : MonoBehaviour {
         if (m_currentState != AnimState.IDLE)
 		{
 			m_speed = 20;
-			SwitchAnimationState(AnimState.IDLE);
+			m_animator.SetBool("IsMove", false);
+            m_currentState = AnimState.IDLE;
 		}
     }
 
     void Move(Vector3 direction) {
-        SwitchAnimationState(AnimState.RUN);
+        m_animator.SetBool("IsMove", true);
+        m_currentState = AnimState.RUN;
 
         Vector3 movement = direction * m_speed * Time.deltaTime;
         Vector3 nextPos = transform.position + movement;
@@ -50,13 +52,18 @@ public class Controller : MonoBehaviour {
     }
 
     public void Hit() {
-        SwitchAnimationState(AnimState.ATTACK_1);
-        m_currentState = AnimState.IDLE;
+        m_animator.SetTrigger("IsAttack");
 	}
 
     public void Jump() {
-        SwitchAnimationState(AnimState.GATHER);
-        m_currentState = AnimState.IDLE;
+        if (m_currentState == AnimState.IDLE) {
+            m_animator.ResetTrigger("IsRun2Jump");
+            m_animator.SetTrigger("IsJump");
+        }
+        if (m_currentState == AnimState.RUN){
+            m_animator.ResetTrigger("IsJump");
+            m_animator.SetTrigger("IsRun2Jump");
+        }
     }
 
 	void SwitchAnimationState(AnimState state)
@@ -64,33 +71,31 @@ public class Controller : MonoBehaviour {
 		if (m_currentState == state)
 			return;
 
-		//m_animtion.Stop();
 		m_currentState = state;
 		switch (state)
 		{
 			case AnimState.RUN:
-				m_animtion.Play("Run");
+                m_animator.SetBool("IsMove", true);
 				break;
 			case AnimState.IDLE:
-                m_animtion.CrossFade("Idle", 0.1f);
+                m_animator.SetBool("IsMove", false);
 				break;
 			case AnimState.IDLE_2:
-				m_animtion.Play("Idle2");
 				break;
             case AnimState.ATTACK_1:
-                m_animtion.Play("Mine1/Attack1");
+                m_animator.SetTrigger("IsAttack");
                 break;
             case AnimState.ATTACK_2:
-                m_animtion.Play("Mine2/Attack2");
+                m_animator.SetBool("IsAttack2", true);
                 break;
             case AnimState.GATHER:
-                m_animtion.Play("Gather");
+                m_animator.SetBool("IsGather", true);
                 break;
             case AnimState.DEATH:
-                m_animtion.Play("Death");
+                m_animator.SetBool("IsDeath", true);
                 break;
             case AnimState.JUMP:
-                m_animtion.Play("Jump");
+                m_animator.SetTrigger("IsJump");
                 break;
 		}
 	}
