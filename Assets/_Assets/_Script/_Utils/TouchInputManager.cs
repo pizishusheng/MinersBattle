@@ -8,6 +8,7 @@ public class TouchInputManager : Singleton<TouchInputManager> {
     public GameObject m_joystick;
     public GameObject m_hitButton;
     public GameObject m_jumpButton;
+    public GameObject m_weapon;
 
     ETCJoystick m_joystickScript;
     ETCButton m_hitButtonScript;
@@ -43,9 +44,11 @@ public class TouchInputManager : Singleton<TouchInputManager> {
 
     void OnHit() {
         m_playerController.Hit();
-    } 
-
+    }
+    bool isShow = false;
     void OnJump() {
-        m_playerController.Jump();
+        //m_playerController.Jump();
+        m_weapon.SetActive(isShow);
+        isShow = !isShow;
     }
 }

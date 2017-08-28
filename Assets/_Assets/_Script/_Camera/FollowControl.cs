@@ -25,12 +25,6 @@ public class FollowControl : MonoBehaviour {
         
 	}
 
-  //  private void Update()
-  //  {
-		//if (m_followTarget != null)
-			//FollowMove();
-    //}
-
     private void LateUpdate()
     {
 		if (m_followTarget != null)

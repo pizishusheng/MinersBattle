@@ -55,7 +55,7 @@ public class Controller : MonoBehaviour {
 	}
 
     public void Jump() {
-        SwitchAnimationState(AnimState.JUMP);
+        SwitchAnimationState(AnimState.GATHER);
         m_currentState = AnimState.IDLE;
     }
 
@@ -72,7 +72,6 @@ public class Controller : MonoBehaviour {
 				m_animtion.Play("Run");
 				break;
 			case AnimState.IDLE:
-				//m_animtion.Play("Idle");
                 m_animtion.CrossFade("Idle", 0.1f);
 				break;
 			case AnimState.IDLE_2:
