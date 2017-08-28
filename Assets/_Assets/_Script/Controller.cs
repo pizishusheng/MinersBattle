@@ -65,38 +65,4 @@ public class Controller : MonoBehaviour {
             m_animator.SetTrigger("IsRun2Jump");
         }
     }
-
-	void SwitchAnimationState(AnimState state)
-	{
-		if (m_currentState == state)
-			return;
-
-		m_currentState = state;
-		switch (state)
-		{
-			case AnimState.RUN:
-                m_animator.SetBool("IsMove", true);
-				break;
-			case AnimState.IDLE:
-                m_animator.SetBool("IsMove", false);
-				break;
-			case AnimState.IDLE_2:
-				break;
-            case AnimState.ATTACK_1:
-                m_animator.SetTrigger("IsAttack");
-                break;
-            case AnimState.ATTACK_2:
-                m_animator.SetBool("IsAttack2", true);
-                break;
-            case AnimState.GATHER:
-                m_animator.SetBool("IsGather", true);
-                break;
-            case AnimState.DEATH:
-                m_animator.SetBool("IsDeath", true);
-                break;
-            case AnimState.JUMP:
-                m_animator.SetTrigger("IsJump");
-                break;
-		}
-	}
 }
