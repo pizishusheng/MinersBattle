@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour {
 
     AnimState m_currentState = AnimState.IDLE;
     Animator m_animator;
+    bool m_isAttacking = false;
 
 	void Start () {
         m_animator = GetComponent<Animator>();
@@ -34,6 +35,12 @@ public class Controller : MonoBehaviour {
 			m_animator.SetBool("IsMove", false);
             m_currentState = AnimState.IDLE;
 		}
+
+        if (m_isAttacking)
+        {
+            m_animator.SetTrigger("Go2Attack");
+            m_isAttacking = false;
+        }
     }
 
     void Move(Vector3 direction) {
@@ -52,17 +59,14 @@ public class Controller : MonoBehaviour {
     }
 
     public void Hit() {
-        m_animator.SetTrigger("IsAttack");
+        if (!m_isAttacking)
+        {
+            m_animator.SetTrigger("Go2Attack");
+            m_isAttacking = true;
+        }
 	}
 
     public void Jump() {
-        if (m_currentState == AnimState.IDLE) {
-            m_animator.ResetTrigger("IsRun2Jump");
-            m_animator.SetTrigger("IsJump");
-        }
-        if (m_currentState == AnimState.RUN){
-            m_animator.ResetTrigger("IsJump");
-            m_animator.SetTrigger("IsRun2Jump");
-        }
+       
     }
 }

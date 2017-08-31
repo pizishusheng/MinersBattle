@@ -22,7 +22,7 @@ public class TouchInputManager : Singleton<TouchInputManager> {
 
         m_hitButtonScript = m_hitButton.GetComponent<ETCButton>();
         m_hitButtonScript.onDown.AddListener(OnHit);
-        //m_hitButtonScript.onUp.AddListener(OnMoveEnd);
+        m_hitButtonScript.onUp.AddListener(OnMoveEnd);
         m_jumpButtonScript = m_jumpButton.GetComponent<ETCButton>();
         m_jumpButtonScript.onDown.AddListener(OnJump);
         //m_jumpButtonScript.onUp.AddListener(OnMoveEnd);
