@@ -11,6 +11,8 @@ public class Controller : MonoBehaviour {
     AnimState m_currentState = AnimState.IDLE;
     Animator m_animator;
     bool m_isAttacking = false;
+    bool m_isMoveOk = true;
+    Vector3 m_curPos;
 
 	void Start () {
         m_animator = GetComponent<Animator>();
@@ -47,11 +49,13 @@ public class Controller : MonoBehaviour {
         m_animator.SetBool("IsMove", true);
         m_currentState = AnimState.RUN;
 
-        Vector3 movement = direction * m_speed * Time.deltaTime;
-        Vector3 nextPos = transform.position + movement;
-        Vector3 targetPos = Vector3.Lerp(transform.position, nextPos, Time.deltaTime * m_speed);
-        transform.position = new Vector3(targetPos.x, 0, targetPos.z);
-    }
+        if (m_isMoveOk) {
+			Vector3 movement = direction * m_speed * Time.deltaTime;
+			Vector3 nextPos = transform.position + movement;
+			Vector3 targetPos = Vector3.Lerp(transform.position, nextPos, Time.deltaTime * m_speed);
+			transform.position = new Vector3(targetPos.x, 0, targetPos.z);
+        } 
+     }
 
     void Rotate(Vector3 direction) {
         float angle = 90 - Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
@@ -68,5 +72,15 @@ public class Controller : MonoBehaviour {
 
     public void Jump() {
        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        m_isMoveOk = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        m_isMoveOk = true;
     }
 }
