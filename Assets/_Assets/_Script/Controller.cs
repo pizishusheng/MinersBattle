@@ -79,25 +79,49 @@ public class Controller : MonoBehaviour {
         string flag = arr[1];
 
         if (flag == "Tools") {
-
             if (!_weaponIK.gameObject.activeSelf) {
                 Change(_weaponIK, weapon);
+                Destroy(_weaponIK.gameObject);
+                _weaponIK = weapon;
                 return;
             }
 
             if (!_leftArmIK.gameObject.activeSelf){
                 Change(_leftArmIK, weapon);
-            } else {
+                Destroy(_leftArmIK.gameObject);
+                _leftArmIK = weapon;
+                return;
+            }
+
+            if (!_rightArmIK.gameObject.activeSelf) {
                 Change(_rightArmIK, weapon);
+                Destroy(_rightArmIK.gameObject);
+                _rightArmIK = weapon;
+                return;
 			}
         }
     }
 
     public void EquipWeapon (bool isLeft) {
         if (isLeft) {
-            Change(_weaponIK, _leftArmIK);
+            if (_leftArmIK.gameObject.activeSelf){
+                Transform parent = _leftArmIK.parent;
+                Vector3 postion = _leftArmIK.position;
+                Vector3 localScale = _leftArmIK.localScale;
+                Quaternion localRotation = _leftArmIK.localRotation;
+				Change(_weaponIK, _leftArmIK);
+                _weaponIK.parent = parent;
+                _weaponIK.position = postion;
+                _weaponIK.localScale = localScale;
+                _weaponIK.localRotation = localRotation;
+				_weaponIK = _leftArmIK;    
+            }
         } else {
-            Change(_weaponIK, _rightArmIK);
+            if (_rightArmIK.gameObject.activeSelf){
+				Change(_weaponIK, _rightArmIK);
+				Destroy(_weaponIK.gameObject);
+				_weaponIK = _rightArmIK;    
+            }
         }
     }
 
@@ -106,9 +130,6 @@ public class Controller : MonoBehaviour {
         newObj.position = oldObj.position;
         newObj.localScale = oldObj.localScale;
         newObj.localRotation = oldObj.localRotation;
-
-        Destroy(oldObj.gameObject);
-        oldObj = newObj;
     }
 
     public void Jump() {
