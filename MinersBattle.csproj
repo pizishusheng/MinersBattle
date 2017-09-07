@@ -133,6 +133,7 @@
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCTouchPad.cs" />
     <Compile Include="Assets\FreeCamera\FreeCamView.cs" />
     <Compile Include="Assets\_Assets\_Script\Controller.cs" />
+    <Compile Include="Assets\_Assets\_Script\WeaponControl.cs" />
     <Compile Include="Assets\_Assets\_Script\_Camera\AbstractTargetFollower.cs" />
     <Compile Include="Assets\_Assets\_Script\_Camera\FollowControl.cs" />
     <Compile Include="Assets\_Assets\_Script\_Camera\FreeLookCam.cs" />

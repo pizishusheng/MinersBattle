@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class TouchInputManager : Singleton<TouchInputManager> {
 
-    public GameObject m_player;
-    public GameObject m_joystick;
-    public GameObject m_hitButton;
-    public GameObject m_jumpButton;
-    public GameObject m_weapon;
+    [SerializeField] GameObject m_player;
+    [SerializeField] GameObject m_joystick;
+    [SerializeField] GameObject m_hitButton;
+    [SerializeField] GameObject m_jumpButton;
+    [SerializeField] GameObject m_leftWeapon;
+    [SerializeField] GameObject m_rightWeapon;
 
     ETCJoystick m_joystickScript;
     ETCButton m_hitButtonScript;
     ETCButton m_jumpButtonScript;
+    ETCButton m_leftWeaponButScript;
+    ETCButton m_rightWeaponButScript;
     Controller m_playerController;
 
 	void Start () {
@@ -26,6 +29,12 @@ public class TouchInputManager : Singleton<TouchInputManager> {
         m_jumpButtonScript = m_jumpButton.GetComponent<ETCButton>();
         m_jumpButtonScript.onDown.AddListener(OnJump);
         //m_jumpButtonScript.onUp.AddListener(OnMoveEnd);
+
+        m_leftWeaponButScript = m_leftWeapon.GetComponent<ETCButton>();
+        m_leftWeaponButScript.onDown.AddListener(OnEquipLeftWeapon);
+
+        m_rightWeaponButScript = m_rightWeapon.GetComponent<ETCButton>();
+        m_rightWeaponButScript.onDown.AddListener(OnEquipRightWeapon);
 
         m_playerController = m_player.GetComponent<Controller>();
 	}
@@ -49,4 +58,13 @@ public class TouchInputManager : Singleton<TouchInputManager> {
     void OnJump() {
         m_playerController.Jump();
     }
+
+    void OnEquipLeftWeapon() {
+        m_playerController.EquipWeapon(true);
+    }
+
+	void OnEquipRightWeapon()
+	{
+        m_playerController.EquipWeapon(false);
+	}
 }

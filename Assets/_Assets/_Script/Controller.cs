@@ -7,6 +7,9 @@ using Player;
 public class Controller : MonoBehaviour {
 
     public int m_speed;
+    [SerializeField] Transform _leftArmIK;
+    [SerializeField] Transform _rightArmIK;
+    [SerializeField] Transform _weaponIK;
 
     AnimState m_currentState = AnimState.IDLE;
     Animator m_animator;
@@ -70,17 +73,60 @@ public class Controller : MonoBehaviour {
         }
 	}
 
+    public void ChangeWeapon (Transform weapon) {
+        string wname = weapon.name;
+        string[] arr = wname.Split('_');
+        string flag = arr[1];
+
+        if (flag == "Tools") {
+
+            if (!_weaponIK.gameObject.activeSelf) {
+                Change(_weaponIK, weapon);
+                return;
+            }
+
+            if (!_leftArmIK.gameObject.activeSelf){
+                Change(_leftArmIK, weapon);
+            } else {
+                Change(_rightArmIK, weapon);
+			}
+        }
+    }
+
+    public void EquipWeapon (bool isLeft) {
+        if (isLeft) {
+            Change(_weaponIK, _leftArmIK);
+        } else {
+            Change(_weaponIK, _rightArmIK);
+        }
+    }
+
+    void Change(Transform oldObj, Transform newObj) {
+        newObj.parent = oldObj.parent;
+        newObj.position = oldObj.position;
+        newObj.localScale = oldObj.localScale;
+        newObj.localRotation = oldObj.localRotation;
+
+        Destroy(oldObj.gameObject);
+        oldObj = newObj;
+    }
+
     public void Jump() {
        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        m_isMoveOk = false;
+        //m_isMoveOk = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        m_isMoveOk = true;
+       // m_isMoveOk = true;
     }
 }
