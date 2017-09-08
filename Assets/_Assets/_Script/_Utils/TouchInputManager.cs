@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TouchInputManager : Singleton<TouchInputManager> {
 
@@ -10,6 +11,8 @@ public class TouchInputManager : Singleton<TouchInputManager> {
     [SerializeField] GameObject m_jumpButton;
     [SerializeField] GameObject m_leftWeapon;
     [SerializeField] GameObject m_rightWeapon;
+
+    [SerializeField] List<Button> _itemList;
 
     ETCJoystick m_joystickScript;
     ETCButton m_hitButtonScript;
@@ -37,6 +40,8 @@ public class TouchInputManager : Singleton<TouchInputManager> {
         m_rightWeaponButScript.onDown.AddListener(OnEquipRightWeapon);
 
         m_playerController = m_player.GetComponent<Controller>();
+
+        m_playerController.m_pickUpEvent.AddListener(OnPickUpItem);
 	}
 	
 	void Update () {
@@ -67,4 +72,28 @@ public class TouchInputManager : Singleton<TouchInputManager> {
 	{
         m_playerController.EquipWeapon(false);
 	}
+
+    void OnPickUpItem (string itemName) {
+        foreach (Button item in _itemList) {
+            Text nameText = item.transform.Find("Text").GetComponent<Text>();
+            if (item.IsActive()) {
+                if (nameText.text == itemName) {
+                    Transform image = item.transform.Find("Image");
+                    Text numText = image.Find("Text").GetComponent<Text>();
+                    numText.text = "2";
+                    break;
+                }
+                continue;
+            }
+
+            nameText.text = itemName;
+            item.onClick.AddListener(OnUseItem);
+            item.gameObject.SetActive(true);
+            break;
+        } 
+    }
+
+    void OnUseItem () {
+        m_playerController.UseItems();
+    }
 }
